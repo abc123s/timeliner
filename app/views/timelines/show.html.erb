@@ -1,7 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <h1> <%= @timeline.title %> </h1>
-<div class="center" style="border-bottom: 1px solid #e8e8e8"> <%= @timeline.description %> </div>
+<div class="center" style="border-bottom: 1px solid #e8e8e8"> <%= @timeline.description %>
+</div>
 <div style="overflow: auto; width: 475px; float:left; height: 450px;">
 <% if current_user.id == @timeline.user_id %>
 <% combined = Array.new %>
@@ -75,7 +76,8 @@
 <% end %>
 <div style="width: 5px; height:100%; background-color: white; position: relative; left: 25px; top: 20px; float: left;"></div>
 </div>
-<div id="map_canvas" style="width:450px; height:450px; position: relative; left: 10px; top: 20px"></div>
+<form style="z-index: 2; position: relative; top:20px; right:10px; float: right;"><input type=button value="Clear Flags On Map" onClick="window.location.reload()"></form> 
+<div id="map_canvas" style="width:450px; height:450px; position: relative; left: 10px; top: -55px"></div>
 <br />
 <div class="center">
 <% if current_user.id == @timeline.user_id %>
