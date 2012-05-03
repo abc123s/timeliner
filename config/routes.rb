@@ -1,4 +1,20 @@
 Timeliner::Application.routes.draw do
+  resources :locations
+
+  resources :audios
+
+  resources :videos
+
+  resources :images
+
+  resources :events
+
+  resources :categories
+
+  resources :timelines
+
+  resources :users
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
