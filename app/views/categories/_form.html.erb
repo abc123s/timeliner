@@ -1,0 +1,18 @@
+<%= form_for(@category, :html => {:multipart => true}) do |f| %>
+  <% render 'shared/error_messages' %>
+
+  <%= f.fields_for :events do |events_form| %>
+    <%= events_form.label :title %>
+    <%= events_form.text_field :title %>
+    
+    <%= events_form.label :description %>
+    <%= events_form.text_area :description %>
+
+    <%= events_form.label :date %>
+    <%= events_form.date_select :date %>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

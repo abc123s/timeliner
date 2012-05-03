@@ -1,14 +1,52 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Timeliner</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title>TimeLiner</title>
+    <%= stylesheet_link_tag    "application", media: "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <%= render 'layouts/shim' %>    
+    <% if @timeline != nil %>
+      <% colors = Array.new %>
+      <% colors << "red" %>
+      <% colors << "blue" %>
+      <% colors << "green" %>
+      <% colors << "orange" %>
+      <% colors << "purple" %>
+      <style>
+        <% @timeline.categories.each do |category| %>
+          .<%= category.title %> a:link { color : <%= colors[0] %> }
+          .<%= category.title %> a:visited { color : <%= colors[0] %> }
+          .<%= category.title %> a:hover { color : black; text-decoration: none; }
+          .<%= category.title %> a:active { color : <%= colors.shift %> }
+        <% end %>
+      </style>
+      <script type="text/javascript"
+              src="http://maps.googleapis.com/maps/api/js?key=AIzaSyClVSy2thhK1yvNPcmXMkxTE2K3l0EoHmI&sensor=false">
+      </script>
+      <script type="text/javascript">
+        function initialize() {
+          var myOptions = {
+            center: new google.maps.LatLng(-34.397, 150.644),
+            zoom: 8,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
+          var map = new google.maps.Map(document.getElementById("map_canvas"),
+              myOptions);
+        }
+      </script>
 
-<%= yield %>
-
-</body>
+    <% end %>
+  </head>
+  <body onload="initialize()">
+    <%= render 'layouts/header' %>
+    <div class="container">
+      <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
+      <%= yield %>
+      <%= render 'layouts/footer' %>
+      <%= debug(params) if Rails.env.development? %>
+    </div>
+  </body>
 </html>

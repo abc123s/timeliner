@@ -1,0 +1,21 @@
+<%= form_for(@timeline, :html => {:multipart => true}) do |f| %>
+    <%= render 'shared/error_messages' %>
+    
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+ 
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+
+    <%= f.label :type %>
+    <%= f.text_field :ttype %>
+
+    <%= f.fields_for :categories do |categories_form| %>
+      <%= categories_form.label 'Category' %>  
+      <%= categories_form.text_field :title %>
+    <% end %>
+
+  <div class="actions">
+    <%= f.submit "Create Timeline", class: "btn btn-large btn-primary" %>
+  </div>
+<% end %>
