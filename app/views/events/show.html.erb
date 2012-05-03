@@ -14,7 +14,15 @@
   <b>Date:</b>
   <%= @event.date %>
 </p>
+<% if @event.image != nil %>
+<img src="<%= @event.image.title %>">
+<% end %>
+<% if @event.video != nil %>
+<iframe class="youtube-player" type="text/html" width="640" height="385" src="http://www.youtube.com/embed/<%= @event.video.title %>" frameborder="0">
+<% end %>
+</iframe>
 
-
+<% if current_user == @event.category.timeline.user %>
 <%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<% end %>
+<%= link_to 'Back', @event.category.timeline %>

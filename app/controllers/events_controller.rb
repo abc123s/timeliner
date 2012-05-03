@@ -1,4 +1,7 @@
 class EventsController < ApplicationController
+  before_filter :logged_in_user, only: [:new, :create, :show, :index, :edit, :update]
+  before_filter :correct_user,   only: [:edit, :update]
+  before_filter :block,          only: [:destroy, :index]
   # GET /events
   # GET /events.json
   def index
@@ -25,6 +28,10 @@ class EventsController < ApplicationController
   # GET /events/new.json
   def new
     @event = Event.new
+    @event.build_image
+    @event.build_location
+    @event.build_video
+    @event.build_audio
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,6 +42,10 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
+    @event.build_image
+    @event.build_location
+    @event.build_video
+    @event.build_audio
   end
 
   # POST /events
@@ -80,4 +91,25 @@ class EventsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+ private
+    # check that user is logged_in
+    def logged_in_user
+      unless signed_in?
+        redirect_to signin_path, notice: "Please sign in."
+      end
+    end
+
+    # check that the user is correct
+    def correct_user
+      @event = Event.find(params[:id])
+      @user = @event.category.timeline.user
+      redirect_to root_path unless current_user?(@user)
+    end
+
+    # block access
+    def block
+      redirect_to root_path
+    end
+
 end

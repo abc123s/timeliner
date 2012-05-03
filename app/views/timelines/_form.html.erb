@@ -10,6 +10,12 @@
     <%= f.label :type %>
     <%= f.text_field :ttype %>
 
+    <%= f.label 'Start date' %>
+    <%= f.date_select :startdate, :start_year => 1830, :end_year => 1850 %>
+    
+    <%= f.label 'End date'%>
+    <%= f.date_select :enddate, :start_year => 1880, :end_year => 1910 %>
+    
     <%= f.fields_for :categories do |categories_form| %>
       <%= categories_form.label 'Category' %>  
       <%= categories_form.text_field :title %>

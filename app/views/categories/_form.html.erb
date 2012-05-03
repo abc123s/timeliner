@@ -9,7 +9,7 @@
     <%= events_form.text_area :description %>
 
     <%= events_form.label :date %>
-    <%= events_form.date_select :date %>
+    <%= events_form.date_select :date, :start_year => @category.timeline.startdate.year, :end_year => @category.timeline.enddate.year %>
   <% end %>
 
   <div class="actions">

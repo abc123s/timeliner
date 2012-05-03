@@ -1,28 +1,35 @@
-<%= form_for(@event) do |f| %>
-  <% if @event.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
-
-      <ul>
-      <% @event.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+<%= form_for(@event, :html => {:multipart => true}) do |f| %>
   <div class="field">
-    <%= f.label :title %><br />
+    <%= f.label :title %>
     <%= f.text_field :title %>
   </div>
   <div class="field">
-    <%= f.label :description %><br />
+    <%= f.label :description %>
     <%= f.text_area :description %>
   </div>
   <div class="field">
-    <%= f.label :date %><br />
+    <%= f.label :date %>
     <%= f.date_select :date %>
   </div>
+  <%= f.fields_for :image do |images_form| %>
+    <%= images_form.label 'Image Link' %> 
+    <%= images_form.text_field :title %>
+  <% end %>
+  <%= f.fields_for :video do |videos_form| %>
+    <%= videos_form.label 'Youtube Link' %> 
+    <%= videos_form.text_field :title %>
+  <% end %>
+  <%= f.fields_for :audio do |audios_form| %>
+    <%= audios_form.label 'Audio Link' %> 
+    <%= audios_form.text_field :title %>
+  <% end %>
+  <%= f.fields_for :location do |locations_form| %>
+    <%= locations_form.label :latitude %> 
+    <%= locations_form.text_field :latitude %>
+    <%= locations_form.label :longitude %> 
+    <%= locations_form.text_field :longitude %>
+  <% end %>
+
   <div class="actions">
     <%= f.submit %>
   </div>

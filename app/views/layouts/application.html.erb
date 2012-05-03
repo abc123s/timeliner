@@ -14,26 +14,62 @@
       <% colors << "orange" %>
       <% colors << "purple" %>
       <style>
-        <% @timeline.categories.each do |category| %>
-          .<%= category.title %> a:link { color : <%= colors[0] %> }
-          .<%= category.title %> a:visited { color : <%= colors[0] %> }
-          .<%= category.title %> a:hover { color : black; text-decoration: none; }
-          .<%= category.title %> a:active { color : <%= colors.shift %> }
-        <% end %>
+        <% (@timeline.categories.sort_by &:id).each do |category| %>
+         <% if category.title != nil %>
+	  .<%= category.title.split[0] %> h3 { color : <%= colors[0] %> }
+          .<%= category.title.split[0] %> a:link { color : <%= colors[0] %> }
+          .<%= category.title.split[0] %> a:visited { color : <%= colors[0] %> }
+          .<%= category.title.split[0] %> a:hover { color : black; text-decoration: none; }
+          .<%= category.title.split[0] %> a:active { color : <%= colors[0] %> }
+          .<%= category.title.split[0] %>e { border : 1px solid <%= colors.shift %> }
+       <% end %>
+       <% end %>
       </style>
       <script type="text/javascript"
               src="http://maps.googleapis.com/maps/api/js?key=AIzaSyClVSy2thhK1yvNPcmXMkxTE2K3l0EoHmI&sensor=false">
       </script>
       <script type="text/javascript">
+        var map; 
         function initialize() {
           var myOptions = {
-            center: new google.maps.LatLng(-34.397, 150.644),
-            zoom: 8,
+            center: new google.maps.LatLng(6.402648,24.858397),
+            zoom: 3,
             mapTypeId: google.maps.MapTypeId.ROADMAP
           };
-          var map = new google.maps.Map(document.getElementById("map_canvas"),
+          map = new google.maps.Map(document.getElementById("map_canvas"),
               myOptions);
         }
+        function setflag(x, y, msg, color) {
+	  var image
+	  if (color == 0)
+	  {
+              image = "/red.png";
+	  }
+	  if (color == 1)
+	  {
+              image = "/blue.png";
+	  }
+	  if (color == 2)
+	  {
+              image = "/green.png";
+	  }
+	  if (color == 3)
+	  {
+              image = "/orange.png";
+	  }
+	  if (color == 4)
+	  {
+              image = "/purple.png";
+	  }
+          var myLatLng = new google.maps.LatLng(x, y);
+          var beachMarker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            icon: image,
+            title: msg
+            });
+        }
+
       </script>
 
     <% end %>

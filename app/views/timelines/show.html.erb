@@ -4,25 +4,76 @@
 <div class="center" style="border-bottom: 1px solid #e8e8e8"> <%= @timeline.description %> </div>
 <div style="overflow: auto; width: 475px; float:left; height: 450px;">
 <% if current_user.id == @timeline.user_id %>
+<% combined = Array.new %>
 <% @timeline.categories.each do |category| %>
+  <% combined.concat(category.events) %>
+<% end %>
+<% combined = combined.sort_by &:date %>
+<% i = 0 %>
+<% (@timeline.categories.sort_by &:id).each do |category| %>
   <div class="column">
-  <span class = "<%= category.title %>">
+  <span class = "<%= category.title.split[0] %>">
     <h3> <%= link_to category.title, edit_category_path(category) %> </h3>
   </span>
-    <% category.events.each do |event| %>
-      <div class = "event"> <%= event.title %> </div>
+  <% combined.each do |event| %>
+    <% if event.category == category %>
+      <% if event.location != nil %>    
+      <div class = "<%= category.title.split[0] %>e" style="margin-bottom: 10px; margin-top: 10px; padding: 3px" onclick="setflag(<%=event.location.latitude%>,<%=event.location.longitude%>, '<%=event.title%>', <%= i %>)">
+      <% else %> 
+      <div class = "<%= category.title.split[0] %>e" style="margin-bottom: 10px; margin-top: 10px; padding: 3px">
+      <% end %>
+    <% else %>
+      <div style = "margin-bottom:10px; margin-top: 10px; padding: 3px; color: white; border: 1px solid white; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none;" >  
+    <% end %>  
+      <h4 style = "color: inherit"> <%= event.date %> </h4>
+        <%= event.title %> <br />
+      <% if event.category == category %>
+        <%= link_to 'Edit', edit_event_path(event) %>
+        <%= link_to 'Destroy', event, confirm: 'Are you sure?', method: :delete %>
+      <% else %>
+         Edit Destroy
+      <% end %>
+     </div>
     <% end %>
+    <% i += 1 %> 
   </div>
-<% end %> 
-<% else %>
-<% @timeline.categories.each do |category| %>
-  <div class="column">
-    <span class = "<%= category.title %>"> <%= category.title %> </span>
-  </div>
-<% end %> 
 <% end %>
-
-<div style="width: 5px; height:100%; background-color: red; position: relative; left: 25px; top: 20px; float: left;"></div>
+<% else %>
+<% combined = Array.new %>
+<% @timeline.categories.each do |category| %>
+  <% combined.concat(category.events) %>
+<% end %>
+<% combined = combined.sort_by &:date %>
+<% i = 0 %>
+<% (@timeline.categories.sort_by &:id).each do |category| %>
+  <div class="column">
+  <span class = "<%= category.title.split[0] %>">
+    <h3> <%= category.title %> </h3>
+  </span>
+  <% combined.each do |event| %>
+    <% if event.category == category %>
+      <% if event.location != nil %>    
+      <div class = "<%= category.title.split[0] %>e" style="margin-bottom: 10px; margin-top: 10px; padding: 3px" onclick="setflag(<%=event.location.latitude%>,<%=event.location.longitude%>, '<%=event.title%>', <%= i %>)">
+      <% else %> 
+      <div class = "<%= category.title.split[0] %>e" style="margin-bottom: 10px; margin-top: 10px; padding: 3px">
+      <% end %>
+    <% else %>
+      <div style = "margin-bottom:10px; margin-top: 10px; padding: 3px; color: white; border: 1px solid white; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none;" >  
+    <% end %>  
+      <h4 style = "color: inherit"> <%= event.date %> </h4>
+        <%= event.title %> <br />
+      <% if event.category == category %>
+        <%= link_to 'Show Details', event %>
+      <% else %>
+	Show Details
+      <% end %>
+     </div>
+    <% end %>
+    <% i += 1 %> 
+  </div>
+<% end %>
+<% end %>
+<div style="width: 5px; height:100%; background-color: white; position: relative; left: 25px; top: 20px; float: left;"></div>
 </div>
 <div id="map_canvas" style="width:450px; height:450px; position: relative; left: 10px; top: 20px"></div>
 <br />

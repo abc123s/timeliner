@@ -1,4 +1,8 @@
 class LocationsController < ApplicationController
+  before_filter :logged_in_user, only: [:new, :create, :show, :index, :edit, :update]
+  before_filter :correct_user,   only: [:edit, :update]
+  before_filter :block,          only: [:destroy, :index, :show]
+
   # GET /locations
   # GET /locations.json
   def index
@@ -80,4 +84,25 @@ class LocationsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+ private
+    # check that user is logged_in
+    def logged_in_user
+      unless signed_in?
+        redirect_to signin_path, notice: "Please sign in."
+      end
+    end
+
+    # check that the user is correct
+    def correct_user
+      @location = Location.find(params[:id])
+      @user = @location.event.category.timeline.user
+      redirect_to root_path unless current_user?(@user)
+    end
+
+    # block access
+    def block
+      redirect_to root_path
+    end
+
 end
