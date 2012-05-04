@@ -41,6 +41,10 @@ class CategoriesController < ApplicationController
   def edit
     @category = Category.find(params[:id])
     @category.events.build
+    @category.events.build_image
+    @category.events.build_video
+    @category.events.build_location
+    @category.events.build_audio
   end
 
   # POST /categories

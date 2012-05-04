@@ -42,10 +42,6 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
-    @event.build_image
-    @event.build_location
-    @event.build_video
-    @event.build_audio
   end
 
   # POST /events

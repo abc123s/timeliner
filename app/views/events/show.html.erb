@@ -14,10 +14,10 @@
   <b>Date:</b>
   <%= @event.date %>
 </p>
-<% if @event.image != nil && @event.image.title != nil %>
+<% if @event.image != nil && @event.image.title != "" %>
 <img src="<%= @event.image.title %>">
 <% end %>
-<% if @event.video != nil && @event.video.title != nil  %>
+<% if @event.video != nil && @event.video.title != "" %>
 <iframe class="youtube-player" type="text/html" width="640" height="385" src="http://www.youtube.com/embed/<%= @event.video.title %>" frameborder="0">
 <% end %>
 </iframe>
