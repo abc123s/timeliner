@@ -4,18 +4,22 @@
 <div class="center" style="border-bottom: 1px solid #e8e8e8"> <%= @timeline.description %>
 </div>
 <div style="overflow: auto; width: 475px; float:left; height: 450px;">
+<div style="width: 475px; float:left">
 <% if current_user.id == @timeline.user_id %>
 <% combined = Array.new %>
-<% @timeline.categories.each do |category| %>
-  <% combined.concat(category.events) %>
-<% end %>
-<% combined = combined.sort_by &:date %>
-<% i = 0 %>
 <% (@timeline.categories.sort_by &:id).each do |category| %>
+  <% combined.concat(category.events) %>
   <div class="column">
   <span class = "<%= category.title.split[0] %>">
     <h3> <%= link_to category.title, edit_category_path(category) %> </h3>
   </span>
+  </div>
+<% end %>
+</div>
+<% combined = combined.sort_by &:date %>
+<% i = 0 %>
+<% (@timeline.categories.sort_by &:id).each do |category| %>
+  <div class="column">
   <% combined.each do |event| %>
     <% if event.category == category %>
       <% if event.location != nil %>    
@@ -40,17 +44,21 @@
   </div>
 <% end %>
 <% else %>
+<% if current_user.id == @timeline.user_id %>
 <% combined = Array.new %>
-<% @timeline.categories.each do |category| %>
-  <% combined.concat(category.events) %>
-<% end %>
-<% combined = combined.sort_by &:date %>
-<% i = 0 %>
 <% (@timeline.categories.sort_by &:id).each do |category| %>
+  <% combined.concat(category.events) %>
   <div class="column">
   <span class = "<%= category.title.split[0] %>">
     <h3> <%= category.title %> </h3>
   </span>
+  </div>
+<% end %>
+</div>
+<% combined = combined.sort_by &:date %>
+<% i = 0 %>
+<% (@timeline.categories.sort_by &:id).each do |category| %>
+  <div class="column">
   <% combined.each do |event| %>
     <% if event.category == category %>
       <% if event.location != nil %>    
@@ -66,7 +74,7 @@
       <% if event.category == category %>
         <%= link_to 'Show Details', event %>
       <% else %>
-	Show Details
+         Show Details
       <% end %>
      </div>
     <% end %>
