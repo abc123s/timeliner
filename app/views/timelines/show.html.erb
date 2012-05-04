@@ -45,7 +45,6 @@
   </div>
 <% end %>
 <% else %>
-<% if current_user.id == @timeline.user_id %>
 <% combined = Array.new %>
 <% (@timeline.categories.sort_by &:id).each do |category| %>
   <% combined.concat(category.events) %>
@@ -81,7 +80,6 @@
     <% end %>
     <% i += 1 %> 
   </div>
-<% end %>
 <% end %>
 <% end %>
 <div style="width: 5px; height:100%; background-color: white; position: relative; left: 25px; top: 20px; float: left;"></div>
