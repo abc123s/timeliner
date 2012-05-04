@@ -2,6 +2,10 @@
 
 /* universal */
 
+#map_canvas img {
+  max-width: none;
+}
+
 .column {
   width: 140px;
   float: left;
