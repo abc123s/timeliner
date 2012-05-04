@@ -1,7 +1,9 @@
 <%= form_for(@category, :html => {:multipart => true}) do |f| %>
   <% render 'shared/error_messages' %>
 
+  <%x = 0 %>
   <%= f.fields_for :events do |events_form| %>
+  <% if @category.events[x].title == nil %>
     <%= events_form.label :title %>
     <%= events_form.text_field :title %>
     
@@ -10,6 +12,8 @@
 
     <%= events_form.label :date %>
     <%= events_form.date_select :date, :start_year => @category.timeline.startdate.year, :end_year => @category.timeline.enddate.year %>
+  <% end %>
+  <% x += 1 %>
   <% end %>
 
   <div class="actions">

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120503161631) do
+ActiveRecord::Schema.define(:version => 20120504162415) do
 
   create_table "audios", :force => true do |t|
     t.string   "title"
@@ -57,10 +57,11 @@ ActiveRecord::Schema.define(:version => 20120503161631) do
     t.text     "description"
     t.integer  "ttype"
     t.integer  "user_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
     t.date     "startdate"
     t.date     "enddate"
+    t.text     "extendeddescription"
   end
 
   create_table "users", :force => true do |t|

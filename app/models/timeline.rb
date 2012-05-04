@@ -1,5 +1,5 @@
 class Timeline < ActiveRecord::Base
-  attr_accessible :title, :description, :ttype, :startdate, :enddate, :categories_attributes
+  attr_accessible :title, :description, :ttype, :startdate, :enddate, :extendeddescription, :categories_attributes
 
   belongs_to :user
   has_many :categories

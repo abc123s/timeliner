@@ -1,10 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <h1> <%= @timeline.title %> </h1>
-<div class="center" style="border-bottom: 1px solid #e8e8e8"> <%= @timeline.description %>
+<div class="center" style="border-bottom: 1px solid #e8e8e8"> <%= @timeline.description %> <br />
+<%= link_to 'Extended Description', '/timelines/description/'+ @timeline.id.to_s %>
 </div>
 <div style="overflow: auto; width: 475px; float:left; height: 450px;">
-<div style="width: 475px; float:left">
+<div style="width: 450px; float:left">
 <% if current_user.id == @timeline.user_id %>
 <% combined = Array.new %>
 <% (@timeline.categories.sort_by &:id).each do |category| %>
@@ -80,6 +81,7 @@
     <% end %>
     <% i += 1 %> 
   </div>
+<% end %>
 <% end %>
 <% end %>
 <div style="width: 5px; height:100%; background-color: white; position: relative; left: 25px; top: 20px; float: left;"></div>

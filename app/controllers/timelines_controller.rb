@@ -37,6 +37,13 @@ class TimelinesController < ApplicationController
     end
   end
 
+  def description
+    @timeline = Timeline.find(params[:id])
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @timeline }
+    end
+  end
   # GET /timelines/new
   # GET /timelines/new.json
   def new
