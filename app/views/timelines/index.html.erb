@@ -4,6 +4,7 @@
   <tr>
     <th>Title</th>
     <th style="width: 400px">Description</th>
+    <th> Created By </th>
     <th></th>
     <th></th>
   </tr>
@@ -11,6 +12,7 @@
   <tr>
     <td><%= timeline.title %></td>
     <td><%= timeline.description %></td>
+    <td><%= timeline.user.name %> </td>
     <td><%= link_to 'View Timeline', timeline %></td>
     <% if current_user.id == timeline.user_id %>
       <td><%= link_to 'Edit', edit_timeline_path(timeline) %></td>
