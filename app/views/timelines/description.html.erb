@@ -4,7 +4,7 @@
 <div class="center" style="border-bottom: 1px solid #e8e8e8"> <%= @timeline.description %>
 </div>
 <div class="center">
-  <%= @timeline.extendeddescription %>
+  <%= @timeline.extendeddescription.html_safe %>
 </div>
 <div class="center">
 <% if current_user.id == @timeline.user_id %>
